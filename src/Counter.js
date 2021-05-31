@@ -1,14 +1,11 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class Counter extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    number: 0,
+    fixedNumber: 0,
+  };
 
-    this.state = {
-      number: 0,
-      fixedNumber: 0,
-    };
-  }
   render() {
     const { number, fixedNumber } = this.state;
     return (
@@ -17,7 +14,17 @@ class Counter extends Component {
         <h2>do not change value : {fixedNumber} </h2>
         <button
           onClick={() => {
-            this.setState({ number: number + 1 });
+            this.setState(
+              (prevState) => {
+                return {
+                  number: prevState.number + 1,
+                };
+              },
+              () => {
+                console.log('setState is called');
+                console.log(this.state);
+              }
+            );
           }}
         >
           +1
